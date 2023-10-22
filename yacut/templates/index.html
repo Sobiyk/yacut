@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% block title %} Yacut - генератор коротких ссылок {% endblock title %}
+{% block content %}
+<main>
+  <section class="container my-5 px-4">
+    <h1 class="text-center"><span style="color:red">Ya</span>Cut</h1>
+    <p class="text-center my-4">
+      Создайте короткую ссылку автоматически или предложите свой вариант
+    </p>
+    <div class="container">
+      <div class="row my-3">
+        <div class="col-sm">
+        </div>
+        <div class="col-sm">
+            <div>
+              <div>
+                {% if form %}
+                  <form method="POST">
+                    {{ form.csrf_token }}
+                    {{ form.original_link(class="form-control form-control-lg py-3 mb-3", placeholder=form.original_link.label.text) }}
+                  </div>
+                  <div>
+                    {{ form.custom_id(class="form-control form-control-lg py-3 mb-3", placeholder=form.custom_id.label.text) }}
+                  </div>
+                    {{ form.create(class="btn btn-primary") }}
+                  </form>
+                {% endif %} 
+              </div>
+            </div>
+          <div class="col-sm">
+            <p>
+              {% if form.original_link.errors %}
+                {% for error in form.original_link.errors %}
+                  <span style="color: red">{{ error }}</span>
+                {% endfor %}
+              {% endif %}
+            </p>
+            <p>
+              {% if form.custom_id.errors %}
+                {% for error in form.custom_id.errors %}
+                  <span style="color: red">{{ error }}</span>
+                {% endfor %}
+              {% endif %}
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="container">
+        <div class="row ">
+          <div class="col-sm">
+          </div>
+          <div class="col-sm">
+            <p class="text-center text-danger fw-bold">
+              {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                  {% for message in messages %}
+                    {{ message }}
+                  {% endfor %}
+                {% endif %}
+              {% endwith %}
+            </p>
+            {% if not url_map %}
+            {% else %}
+              <p class="text-center">
+                <h5 class="text-center"> Ваша короткая ссылка готова: </h5>
+                <a href="http://localhost/{{ url_map.short }}"><h5 class="text-center">http://localhost/{{ url_map.short }}</h5></a>
+              </p>
+            {% endif %}
+          </div>
+          <div class="col-sm">
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+{% endblock content %}
