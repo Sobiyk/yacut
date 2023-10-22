@@ -1,10 +1,6 @@
-from random import choice
-from string import ascii_lowercase, ascii_uppercase, digits
-
-from flask import abort, flash, render_template, redirect, url_for
+from flask import abort, flash, render_template, redirect
 
 from . import app, db
-from .constants import MAIN_URL
 from .forms import URLMapForm
 from .models import URLMap
 from .utils import generate_url
@@ -20,15 +16,15 @@ def generate_short_id_view():
         if not short:
             short = generate_url()
         elif URLMap.query.filter_by(short=short).first():
-                flash('Предложенный вариант короткой ссылки уже существует.')
-                return render_template('index.html', form=form)
+            flash('Предложенный вариант короткой ссылки уже существует.')
+            return render_template('index.html', form=form)
         url_map = URLMap(
-             original = original,
-             short = short
+            original=original,
+            short=short
         )
         db.session.add(url_map)
         db.session.commit()
-        context = {'url_map': url_map, 'form': form, 'main_url': MAIN_URL}
+        context = {'url_map': url_map, 'form': form}
         return render_template('index.html', **context)
     return render_template('index.html', form=form)
 

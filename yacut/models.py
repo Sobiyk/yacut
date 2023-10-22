@@ -18,10 +18,10 @@ class URLMap(db.Model):
     def to_dict(url):
         """ Метод для приведения полей модели к базовым структурам Python. """
         return dict(
-            url = url.original,
-            short_link = MAIN_URL + url.short
+            url=url.original,
+            short_link=MAIN_URL + url.short
         )
-    
+
     def from_dict(self, data):
         """ Метод для приведения данных из запроса к необохдимому типу. """
         for field in ['original', 'short']:
@@ -33,17 +33,17 @@ class URLMap(db.Model):
         if not value:
             raise InvalidAPIUsage('\"url\" является обязательным полем!')
         return value
-    
+
     @validates('short')
     def validate_short(self, key, value):
         if URLMap.query.filter_by(short=value).first():
             raise InvalidAPIUsage(
                 'Предложенный вариант короткой ссылки уже существует.'
-                )
+            )
 
         correct = re.match(RE_LEGAL_CAHRS, value)
         if not correct:
             raise InvalidAPIUsage(
                 'Указано недопустимое имя для короткой ссылки'
-                )
+            )
         return value

@@ -1,5 +1,3 @@
-from re import escape
-
 from flask import jsonify, request
 
 from . import app, db
@@ -20,7 +18,7 @@ def generate_short_url():
         'custom_id' in data and
         data['custom_id'] != '' and
         data['custom_id'] is not None
-        ):
+    ):
         data['short'] = data['custom_id']
     else:
         data['short'] = generate_url()
