@@ -1,3 +1,5 @@
+from http import HTTPStatus
+
 from flask import abort, flash, render_template, redirect
 
 from . import app, db
@@ -32,7 +34,5 @@ def generate_short_id_view():
 @app.route('/<string:short>')
 def short_id_view(short):
     """ View-функция для переадресации с короткой ссылки на оригинальную. """
-    url_map = URLMap.query.filter_by(short=short).first()
-    if not url_map:
-        abort(404)
+    url_map = URLMap.query.filter_by(short=short).first_or_404()
     return redirect(url_map.original)
