@@ -15,8 +15,8 @@
     {% block content %}{% endblock content %}
     {% include "includes/footer.html" %}
   </body>
-  <link rel="script" href="static/js/jquery-3.2.1.slim.min.js"
-    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></link>
-  <link rel="script" href="static/js/bootstrap.min.js"
-    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></lnik>
+  <a rel="script" href="{{ url_for('static', filename='js/jquery-3.2.1.slim.min.js') }}"
+    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></a>
+  <a rel="script" href="{{ url_for('static', filename='js/bootstrap.min.js') }}"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></a>
 </html>
